@@ -20,13 +20,13 @@ class Bomb extends React.Component {
     }
 
     changeDisplayText(time){
-        if (time % 2 === 0 && time < 8){
+        if (time % 2 === 0){
             return 'tick'
         }
-        else if (time % 2 !== 0 && time < 8){
+        else if (time < 8){
             return 'tock'
         }
-        else if (time >= 8){
+        else {
             clearInterval(this.interval);
             return 'BOOM';
         }
