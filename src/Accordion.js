@@ -3,13 +3,17 @@ import React from 'react';
 class Accordion extends React.Component {
     
     state = {
-        lastClickedIndex: 1
+        lastClickedIndex: null
     }
 
-handleClick = (e) => {
-    console.log('HandleClick ran')
+handleClick(e) {
+    console.log('HandleClick ran', e)
+    if (this.state.lastClickedIndex === e){
     this.setState({
-        lastClickedIndex: e.target.dataset.id
+        lastClickedIndex: null
+    })}
+    else this.setState({
+        lastClickedIndex : e
     })
 }
 
@@ -20,18 +24,19 @@ handleExpandedItem = (id, content) => {
     } else return '';
 }
         
-    listItems = this.props.section.map((section, index) => {
-        return <li>
-            <button data-id={index} onClick={this.handleClick} >{section.title}</button>
-                    {this.handleExpandedItem}
-        </li>
-    })
+   
 
         
 
     render(){
+        const listItems = this.props.section.map((section, index) => {
+            return <li>
+                <button data-id={index} onClick={() => this.handleClick(index)} >{section.title}</button>
+                        {this.handleExpandedItem(index, section.content)}
+            </li>
+        })
         return <ul>
-            {this.listItems}
+            {listItems}
         </ul>
     }
 }
